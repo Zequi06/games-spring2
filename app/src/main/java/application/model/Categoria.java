@@ -1,4 +1,4 @@
-package application.controller;
+package application.model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -39,7 +39,7 @@ public class Categoria {
         this.nome = nome;
     }
 
-    public Set<jogo> getJogos(){
+    public Set<Jogo> getJogos(){
         return jogos;
     }
 

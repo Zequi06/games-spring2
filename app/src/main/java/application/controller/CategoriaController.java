@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import application.model.categoria;
+import application.model.Categoria;
 import application.repository.CategoriaRepository;
 
 @Controller
@@ -58,7 +58,7 @@ public class CategoriaController {
         @RequestParam("id") long id,
         @RequestParam("nome") String nome ) {
 
-            Optional<Categoria> categortia = categoriaRepo.findById(id);
+            Optional<Categoria> categoria = categoriaRepo.findById(id);
 
             if (categoria.isPresent()) {
                 categoria.get().setNome(nome);
