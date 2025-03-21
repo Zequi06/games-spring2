@@ -14,7 +14,7 @@ import application.repository.PlataformaRepository;
 
 @Controller
 @RequestMapping("/plataforma")
-public class PlataformaController{
+public class PlataformaController {
     @Autowired
     private PlataformaRepository plataformaRepo;
 
@@ -42,49 +42,53 @@ public class PlataformaController{
     @RequestMapping("/update")
     public String update(
         @RequestParam("id") long id,
-        Model ui){
-            Optional<Plataforma> plataforma = plataformaRepo.findById(id);
+        Model ui
+    ) {
+        Optional<Plataforma> plataforma = plataformaRepo.findById(id);
 
-            if(plataforma.isPresent()){
-                ui.addAttribute("plataforma", plataforma.get());
-                return "plataforma/update";
-            }
-
-            return "redirect:/plataforma/list";
+        if(plataforma.isPresent()){
+            ui.addAttribute("plataforma", plataforma.get());
+            return "plataforma/update";
         }
-        
-        @RequestMapping(value = "/update", method = RequestMethod.POST)
-        public String update(
-            @RequestParam("id") long id,
-            @RequestParam("nome") String nome) {
-                Optional<Plataforma> plataforma = plataformaRepo.findById(id);
 
-                if(plataforma.isPresent()){
-                    plataforma.get().setNome(nome);
-                    
-                    plataformaRepo.save(plataforma.get());
-                }
+        return "redirect:/plataforma/list";
+    }
 
-                return "redirect:/plataforma/list";
-            }
-        @RequestMapping("/delete")
-        public String delete(
-            @RequestParam("id") long id, 
-            Model ui){
-                Optional<Plataforma> plataforma = plataformaRepo.findById(id);
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String update(
+        @RequestParam("id") long id,
+        @RequestParam("nome") String nome
+    ) {
+        Optional<Plataforma> plataforma = plataformaRepo.findById(id);
 
-                if(plataforma.isPresent()){
-                    ui.addAttribute("plataforma", plataforma.get());
-                    return "plataforma/delete";
-                }
+        if(plataforma.isPresent()){
+            plataforma.get().setNome(nome);
 
-                return "redirect:/plataforma/list";
-            }
-            
-            @RequestMapping(value = "/delete", method = RequestMethod.POST)
-            public String delete(@RequestParam("id") long id){
-                plataformaRepo.deleteById(id);
+            plataformaRepo.save(plataforma.get());
+        }
 
-                return "redirect:/plataforma/list";
-            }
+        return "redirect:/plataforma/list";
+    }
+
+    @RequestMapping("/delete")
+    public String delete(
+        @RequestParam("id") long id,
+        Model ui
+    ) {
+        Optional<Plataforma> plataforma = plataformaRepo.findById(id);
+
+        if(plataforma.isPresent()){
+            ui.addAttribute("plataforma", plataforma.get());
+            return "plataforma/delete";
+        }
+
+        return "redirect:/plataforma/list";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(@RequestParam("id") long id) {
+        plataformaRepo.deleteById(id);
+
+        return "redirect:/plataforma/list";
+    }
 }

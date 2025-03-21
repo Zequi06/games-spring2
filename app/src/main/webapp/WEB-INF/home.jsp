@@ -32,6 +32,5 @@
             </div>
           </nav>
         <h1>Games Spring!</h1>
-        <h2>Aluno: Mauricio Zequi Passaro Martins</h2>
     </body>
 </html>

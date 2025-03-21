@@ -4,54 +4,39 @@
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <title>Jogos</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <title>Editar Jogo</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Menu</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                  </li>
-                </ul>
-                </div>
-            </div>
-        </nav>
         <div class="container">
-            <h1>Jogos</h1>
-                <a href="/jogo/insert" class="btn btn-primary">Novo Jogo</a>
-                <table class="table">
-                    <tr>
-                        <th>Id</th>
-                        <th>Titulo</th>
-                        <th>Categoria</th>
-                        <th>Plataformas</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                    <c:forEach var="item" items="${jogos}">
-                        <tr>
-                            <td>${item.id}</td>
-                            <td>${item.titulo}</td>
-                            <td>${item.categoria.nome}</td>
-                            <td>
-                                <c:forEach var="p" varStatus="s" items="${item.plataformas}">
-                                    ${s.getCount() > 1 ? ", " : ""}
-                                    ${p.nome}
-                                </c:forEach>
-                            </td>
-                            <td>
-                                <a href="/jogo/update?id=${item.id}" class="btn btn-warning">Editar</a>
-                                <a href="/jogo/delete?id=${item.id}" class="btn btn-danger">Excluir</a>
-                            </td>
-                        </tr>
+            <h1>Editar Jogo</h1>
+            <form action="/jogo/update" method="post">
+                <input type="hidden" name="id" value="${jogo.id}">
+                <div class="form-group">
+                    <label for="nome">TItulo:</label>
+                    <input type="text" name="nome" class="form-control" value="${jogo.titulo}">
+                </div>
+                <div class="form-group">
+                    <label for="categoria">Categoria:</label>
+                    <select name="categoria" class="form-select">
+                        <c:forEach var="c" items="${categorias}">
+                            <option ${jogo.categoria.id == c.id ? "selected" : ""} value="${c.id}">${c.nome}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="plataforma">Plataforma(s):</label>
+                    <c:forEach var="p" items="${plataformas}">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" ${jogo.plataforma.contains(p) ? "cheked" : ""} class="custom-control-input" name="plataformas" value="${p.id}" id="${p.id}">
+                            <label class="custom-control-label" for="${p.id}">${p.nome}</label>
+                        </div>
                     </c:forEach>
-                </table>
+                </div>
+                <br>
+                <a href="/jogo/list" class="btn btn-primary">Voltar</a>
+                <button type="submit" class="btn btn-sucess">Salvar</button>
+            </form>
         </div>
     </body>
 </html>
