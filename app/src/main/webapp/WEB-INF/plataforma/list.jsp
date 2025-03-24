@@ -22,6 +22,7 @@
                 </ul>
                 </div>
             </div>
+            
         </nav>
         <div class="container">
             <h1>Plataformas</h1>
